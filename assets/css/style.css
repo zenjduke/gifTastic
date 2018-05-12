@@ -1,0 +1,31 @@
+h1 {
+    font-size: 48px;
+    margin: 15px;
+    font-family: 'Permanent Marker', cursive;
+    color: white;
+    float: left;
+}
+
+body {
+    background: indianred;
+    font-family: 'Raleway', sans-serif;
+}
+
+a {
+    padding: 5px;
+    margin: 15px;
+    font-size: 22px;
+    background:  #26a69a;
+}
+
+input {
+    margin: 10px;
+    color: white;
+}
+
+p {
+    margin: 5px;
+    font-size: 18px;
+}
+
+

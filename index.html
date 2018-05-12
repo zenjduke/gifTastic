@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Favorite Gifs</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker|Raleway" rel="stylesheet">
+
+    
+    <!-- MATERIALIZE Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+    <!--My Style Sheet-->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+    <h1>Gif Search</h1><br>
+    </div>
+
+    <div class="row">
+    <!-- Rendered Buttons will get Dumped Here  -->
+    <div id="buttons-view"></div>
+
+    <form id="gif-form">
+      <label for="gif-input"></label>
+      <input type="text" id="gif-input" placeholder="Search here.">
+
+      <!-- Button triggers new gif category button to be added -->
+      <button class="btn waves-effect waves-light" id="submit-search" type="submit" name="action">Submit
+        <i class="material-icons right"></i>
+      </button>
+
+    </form>
+    </div>
+    <!-- GIFS will Get Dumped Dere -->
+    <div class = "row" id="gif-view"></div>
+
+    
+    
+    
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- MATERIALIZE Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <!--My Script File-->
+    <script src="assets/2app.js"></script>
+
+  </div>
+
+</body>
+
+</html>
