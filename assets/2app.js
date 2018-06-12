@@ -53,34 +53,20 @@ $(document).on('click','.topic',function(){
  
          // Looping through each result item
          for (var i = 0; i < results.length; i++) {
- 
-          // Creating and storing a div tag
-          
-          var column = $("<div>").addClass("col s6");
-          var card = $("<div>").addClass("card");
-         
-          var gifDiv = $("<div>").addClass("card-image");
-          var span = $("<span>").addClass("card-title");
-         
-          var gifContent = $("<div>").addClass("card-content");
-          // Creating a paragraph tag with the result item's rating
-          var p = $("<p>").text("Rating: " + results[i].rating);
-         
-          // Creating and storing an image tag and setting the src attribute of the image to a property pulled off the result item
+
+          // Creating a w3 cards for gif photo and title and button to "Learn More" about specific gif
+          var gifContainer = $("<div>").addClass("w3-card-4").addClass("gif");
+          // var gifTextBlock = $("<span>").addClass("w3-container w3-pale-red").text(results[i].rating);
+
+
+          // Creating an image tag
           var gifImage = $("<img>");
           gifImage.attr("src", results[i].images.fixed_height_still.url).attr("gif-topic", topicArray[i]).attr("data-still", results[i].images.fixed_height_still.url).attr("data-animate", results[i].images.fixed_height.url).attr("data-state", "still");
-         
-          // Appending the paragraph to the gifContent div
-          gifContent.append(p);
-          // Appending the image and title to the gifDiv
-          gifDiv.append(gifImage).append(span);
-         
-          card.append(gifDiv).append(gifContent);
-         
-          $("#gif-view").prepend(column).prepend(card);
-         
-          // // Prependng the gifDiv to the HTML page in the "#gifs-appear-here" div
-          // $("#gif-view").prepend(row);
+          
+          gifContainer.append(gifImage);
+
+          // Prepending the gifContainer to the "#gifs-appear-here" div in the HTML
+          $("#gif-view").prepend(gifContainer);
          }
        })
   });
