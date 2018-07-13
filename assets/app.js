@@ -1,49 +1,113 @@
+// This code will run as soon as the page loads
+window.onload = function() {
+  gifApp.renderButtons();
+  $("#submit-search").on("click", gifApp.addButton);
+};
 
+$(document).on('click','img',function(){
+  event.preventDefault();
 
+      var state = $(this).attr("data-state");
+      var animate = ($(this).attr("data-animate"));
+      var still = ($(this).attr("data-still"));
+      var src = $(this).find('img').attr('src');
 
-{/* <div class="row">
-    <div class="col s12 m6">
-      <div class="card">
-        <div class="card-image">
-          <img src="images/sample-1.jpg">
-          <span class="card-title">Card Title</span>
-          <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-        </div>
-        <div class="card-content">
-          <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-        </div>
-      </div>
-    </div>
-  </div> */}
+      console.log(state);
+      console.log(src);
+      console.log("Animate= "+animate);
+      console.log("Still = "+still);
 
+      if (state === "still") {
+        $(this).attr("src", animate);
+        $(this).attr("data-state", "animate");
+      } 
+      
+      else {
+        $(this).attr("src", still);
+        $(this).attr("data-state", "still");
+      }
+    });
 
-  for (var i = 0; i < results.length; i++) {
+  // Click event for searching 10 gifs from clicked button topic
+$(document).on('click','.topic',function(){
+  event.preventDefault();
+
+    var gif = $(this).attr("gif-topic");
+    console.log(gif);
  
- // Creating and storing a div tag
- var row = $("<div>").addClass("row");
- var column = $("<div>").addClass("col s12 m6");
- var card = $("<div>").addClass("card");
+    // Constructing a queryURL using the gif name
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=dc6zaTOxFJmzC&limit=10";
+ 
+     // Performing an AJAX request with the queryURL
+     $.ajax({
+       url: queryURL,
+       method: "GET"
+     })
+       // After data comes back from the request
+       .then(function(response) {
+         console.log(queryURL);
+ 
+         console.log(response);
+         // storing the data from the AJAX request in the results variable
+         var results = response.data;
+ 
+         // Looping through each result item
+         for (var i = 0; i < results.length; i++) {
 
- var gifDiv = $("<div>").addClass("card-image");
- var span = $("<span>").addClass("card-title").text("title");
+          // Creating a w3 cards for gif photo and title and button to "Learn More" about specific gif
+          var gifContainer = $("<div>").addClass("w3-card-4").addClass("gif");
+          // var gifTextBlock = $("<span>").addClass("w3-container w3-pale-red").text(results[i].rating);
 
- var gifContent = $("<div>").addClass("card-content");
- // Creating a paragraph tag with the result item's rating
- var p = $("<p>").text("Rating: " + results[i].rating);
 
- // Creating and storing an image tag and setting the src attribute of the image to a property pulled off the result item
- var gifImage = $("<img>");
- gifImage.attr("src", results[i].images.fixed_height_still.url).attr("gif-topic", topicArray[i]).attr("data-still", results[i].images.fixed_height_still.url).attr("data-animate", results[i].images.fixed_height.url).attr("data-state", "still");
+          // Creating an image tag
+          var gifImage = $("<img>");
+          gifImage.attr("src", results[i].images.fixed_height_still.url).attr("gif-topic", topicArray[i]).attr("data-still", results[i].images.fixed_height_still.url).attr("data-animate", results[i].images.fixed_height.url).attr("data-state", "still");
+          
+          gifContainer.append(gifImage);
 
- // Appending the paragraph to the gifContent div
- gifContent.append(p);
- // Appending the image and title to the gifDiv
- gifDiv.append(gifImage).append(span);
+          // Prepending the gifContainer to the "#gifs-appear-here" div in the HTML
+          $("#gif-view").prepend(gifContainer);
+         }
+       })
+  });
 
- card.append(gifDiv).append(gifContent);
+// Initial array of topics
+var topicArray = ["Barack Obama", "Stephen Colbert", "Jon Stewart", "Samantha Bee"];
 
- row.append(column).append(card);
+var gifApp = {
 
- // Prependng the gifDiv to the HTML page in the "#gifs-appear-here" div
- $("#gif-view").prepend(row);
-}
+    renderButtons: function(){
+        //Empty button div before rendering buttons
+        $("#buttons-view").empty();
+      
+        // Looping through the array of topics
+        for (var i = 0; i < topicArray.length; i++) {
+        
+          var g = $("<a>");
+          // Adding a class of gif-btn to our button
+          g.addClass("waves-effect waves-light btn topic");
+          // Adding a data-attribute
+          g.attr("gif-topic", topicArray[i]);
+          // Providing the initial button text
+          g.text(topicArray[i]);
+          // Adding the button to the buttons-view div
+          $("#buttons-view").append(g);
+        }
+    },
+
+
+    addButton: function(event){
+      event.preventDefault();
+      // This line grabs the input from the textbox
+      var gifSearch = $("#gif-input").val().trim();
+   
+      // Adding topic from the textbox to topics array
+      topicArray.push(gifSearch);
+   
+      // Calling renderButtons which handles the processing of topics array
+      gifApp.renderButtons();
+      $("#gif-input").empty().attr("placeholder", "Search again.");
+    },
+
+};
+
